@@ -2,8 +2,8 @@ body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: lightyellow;
+    color: greenyellow;
 }
 main, .section, footer {
     max-width: 1200px;
@@ -11,7 +11,7 @@ main, .section, footer {
     padding: 20px;
 }
 header {
-    background-color: #ffffff;
+    background: transparent;
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
@@ -51,7 +51,7 @@ nav ul li a {
     transition: color 0.3s;
 }
 nav ul li a:hover, nav ul li a.active {
-    color: #0a9396;
+    color: black;
 }
 .menu-toggle {
     display: none;
@@ -85,8 +85,8 @@ img {
     display: block;
 }
 footer {
-    background-color: #222;
-    color: white;
+    background-color: lightgrey;
+    color: greenyellow;
     text-align: center;
     padding: 40px 20px;
     margin-top: 20px;
