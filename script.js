@@ -3,37 +3,72 @@ function toggleMenu() {
     menu.classList.toggle('active');
 }
 
+// Close menu when clicking a nav link
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        const menu = document.querySelector('.nav-links');
+        if (menu.classList.contains('active')) {
+            menu.classList.remove('active');
+        }
+    });
+});
+
+// Smooth Scroll Function
 function scrollToSection(sectionId) {
     const section = document.querySelector(sectionId);
     if (section) {
+        const offset = window.innerWidth < 768 ? 50 : 60;
         window.scrollTo({
-            top: section.offsetTop - 60,
+            top: section.offsetTop - offset,
             behavior: 'smooth'
         });
     }
 }
 
-// Preloader Animation
+// Attach smooth scrolling to nav links
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            scrollToSection(this.getAttribute('href'));
+        });
+    });
+});
+
+// Section Scroll Animation using IntersectionObserver
+document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll(".section").forEach(section => observer.observe(section));
+});
+
+// Back to Top Button
+const backToTopButton = document.createElement("button");
+backToTopButton.id = "back-to-top";
+backToTopButton.textContent = "↑ Top";
+document.body.appendChild(backToTopButton);
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+        backToTopButton.style.display = "block";
+    } else {
+        backToTopButton.style.display = "none";
+    }
+});
+
+backToTopButton.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// Preloader Functionality
 window.addEventListener("load", function () {
     setTimeout(() => {
         document.body.classList.add("loaded");
-    }, 21000);
+    }, 15000); // Ensures preloader finishes before revealing the content
 });
-
-// Section Scroll Animation
-function revealSections() {
-    const sections = document.querySelectorAll(".section");
-    sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        const triggerPoint = window.innerHeight * 0.8;
-
-        if (sectionTop < triggerPoint) {
-            section.classList.add("visible");
-        } else {
-            section.classList.remove("visible");
-        }
-    });
-}
-
-window.addEventListener("scroll", revealSections);
-window.addEventListener("load", revealSections);
